@@ -56,13 +56,13 @@ namespace WebAsistida.Filters
             Dictionary<String, List<String>> newActivity2RoleList;
 
             qry_txt = "SELECT\n";
-            qry_txt += "  RepRole_id,\n";
-            qry_txt += "  RepActivity_id\n";
+            qry_txt += "  WebRole_id,\n";
+            qry_txt += "  WebActivity_id\n";
             qry_txt += "FROM\n";
             qry_txt += dbschema + ".V_CurrentRoleActivity\n";
             qry_txt += "ORDER BY\n";
-            qry_txt += "  RepActivity_id,\n";
-            qry_txt += "  RepRole_id\n";
+            qry_txt += "  WebActivity_id,\n";
+            qry_txt += "  WebRole_id\n";
 
             conn_str = Parametros().strTeradata;
 
@@ -90,23 +90,23 @@ namespace WebAsistida.Filters
                     //newRoleActivitySet = new HashSet<RoleActivity>();
                     newActivity2RoleList = new Dictionary<String, List<String>>();
 
-                    String _RepRole_id;
-                    String _RepActivity_id;
-                    String Last_RepActivity_id = "";
+                    String _WebRole_id;
+                    String _WebActivity_id;
+                    String Last_WebActivity_id = "";
                     //LinkedList<String> currRoleList = null;
                     List<String> currRoleList = null;
                     while (rdr.Read())
                     {
-                        _RepRole_id = rdr.GetString(0).ToString().ToLower();
-                        _RepActivity_id = rdr.GetString(1).ToString().ToLower();
+                        _WebRole_id = rdr.GetString(0).ToString().ToLower();
+                        _WebActivity_id = rdr.GetString(1).ToString().ToLower();
 
-                        if ( ! Last_RepActivity_id.Equals(_RepActivity_id))
+                        if ( ! Last_WebActivity_id.Equals(_WebActivity_id))
                         {
                             currRoleList = new List<String>();
-                            newActivity2RoleList.Add(_RepActivity_id, currRoleList);
-                            Last_RepActivity_id = _RepActivity_id;
+                            newActivity2RoleList.Add(_WebActivity_id, currRoleList);
+                            Last_WebActivity_id = _WebActivity_id;
                         }
-                        currRoleList.Add(_RepRole_id);
+                        currRoleList.Add(_WebRole_id);
                     }
                 }
             }
@@ -120,10 +120,10 @@ namespace WebAsistida.Filters
             String controllerName = actionContext.ActionDescriptor.ControllerDescriptor.ControllerName.ToLower();
             GenericPrincipal gprincipal = (GenericPrincipal)Thread.CurrentPrincipal;
 
-            String _RepActivity_id = controllerName + "/" + actionName;
+            String _WebActivity_id = controllerName + "/" + actionName;
 
             List<String> currRoleList;
-            if (_Activity2RoleList.TryGetValue(_RepActivity_id, out currRoleList))
+            if (_Activity2RoleList.TryGetValue(_WebActivity_id, out currRoleList))
             {
                 for (int i = 0; i < currRoleList.Count(); i++)
                 {
@@ -134,7 +134,7 @@ namespace WebAsistida.Filters
                 }
             }
             //Comentar para provar en casa
-            throw new UnauthorizedAccessException("Usuario " + gprincipal.Identity.Name + " no tiene permiso para invocar " + _RepActivity_id + ".");
+            throw new UnauthorizedAccessException("Usuario " + gprincipal.Identity.Name + " no tiene permiso para invocar " + _WebActivity_id + ".");
         }
 
 
@@ -176,10 +176,10 @@ namespace WebAsistida.Filters
             String controllerName = actionContext.ActionDescriptor.ControllerDescriptor.ControllerName.ToLower();
             GenericPrincipal gprincipal = (GenericPrincipal)Thread.CurrentPrincipal;
 
-            String _RepActivity_id = controllerName + "/" + actionName;
+            String _WebActivity_id = controllerName + "/" + actionName;
 
             List<String> currRoleList;
-            if (_Activity2RoleList.TryGetValue(_RepActivity_id, out currRoleList))
+            if (_Activity2RoleList.TryGetValue(_WebActivity_id, out currRoleList))
             {
                 for (int i = 0; i < currRoleList.Count(); i++)
                 {
@@ -190,7 +190,7 @@ namespace WebAsistida.Filters
                 }
             }
             //Comentar para provar en casa
-            throw new UnauthorizedAccessException("Usuario " + gprincipal.Identity.Name + " no tiene permiso para invocar " + _RepActivity_id + ".");
+            throw new UnauthorizedAccessException("Usuario " + gprincipal.Identity.Name + " no tiene permiso para invocar " + _WebActivity_id + ".");
     
             //pre execution hook
         }
@@ -207,7 +207,7 @@ namespace WebAsistida.Filters
         {
             IEnumerable<string> auth_coll = null;
             IPrincipal parsedPrincipal = null;
-            String RepUser_id = Request.Properties.ContainsKey("RepUser_id") ? Request.Properties["RepUser_id"].ToString() : null;
+            String WebUser_id = Request.Properties.ContainsKey("WebUser_id") ? Request.Properties["WebUser_id"].ToString() : null;
 
             if (Request.Headers.Contains("CfApiAuthorization"))
             {
@@ -225,10 +225,10 @@ namespace WebAsistida.Filters
                 {
                     String[] credentials = authVal.Split(new[] { ':' });
                     String rolestring = credentials[2];
-                    String[] RepSessionRoles = rolestring.Split(new[] { ',' });
+                    String[] WebSessionRoles = rolestring.Split(new[] { ',' });
 
-                    GenericIdentity identity = new GenericIdentity(RepUser_id, "Custom");
-                    parsedPrincipal = new GenericPrincipal(identity, RepSessionRoles);
+                    GenericIdentity identity = new GenericIdentity(WebUser_id, "Custom");
+                    parsedPrincipal = new GenericPrincipal(identity, WebSessionRoles);
                     Thread.CurrentPrincipal = parsedPrincipal;
                 }
             }
@@ -237,10 +237,10 @@ namespace WebAsistida.Filters
             String controllerName = ControllerContext.RouteData.Values["controller"].ToString().ToLower(); ;
             GenericPrincipal gprincipal = (GenericPrincipal)Thread.CurrentPrincipal;
 
-            String _RepActivity_id = controllerName + "/" + actionName;
+            String _WebActivity_id = controllerName + "/" + actionName;
 
             List<String> currRoleList;
-            if (_Activity2RoleList.TryGetValue(_RepActivity_id, out currRoleList))
+            if (_Activity2RoleList.TryGetValue(_WebActivity_id, out currRoleList))
             {
                 for (int i = 0; i < currRoleList.Count(); i++)
                 {
@@ -251,7 +251,7 @@ namespace WebAsistida.Filters
                 }
             }
 
-            throw new UnauthorizedAccessException("Usuario " + gprincipal.Identity.Name + " no tiene permiso para invocar " + _RepActivity_id + ".");
+            throw new UnauthorizedAccessException("Usuario " + gprincipal.Identity.Name + " no tiene permiso para invocar " + _WebActivity_id + ".");
         }
     }
 }

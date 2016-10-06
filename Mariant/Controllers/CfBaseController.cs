@@ -333,17 +333,17 @@ namespace WebAsistida.lib
             }
 
             // Completa datos de tracking, si la tabla tiene esos campos.
-            setEventProperty(param, tabInfo.TrkEvent_Column, "RepEvent_id");
-            setEventProperty(param, tabInfo.TrkUser_Column, "RepUser_id");
+            setEventProperty(param, tabInfo.TrkEvent_Column, "WebEvent_id");
+            setEventProperty(param, tabInfo.TrkUser_Column, "WebUser_id");
 
             String qry_txt = "";
             String[] paramNames;
             String upsert_response = "";
             String conn_str = Parametros().strTeradata;
             JObject res_ret = new JObject(); // Objeto a retornar con resultado de lectura.
-            String _RepDbObject_id = this.ToString().Split('.')[2];
-            String _RepEvent_id = Request.Properties.ContainsKey("RepEvent_id") ? Request.Properties["RepEvent_id"].ToString() : "";
-            String _RepUser_id = Request.Properties.ContainsKey("RepUser_id") ? Request.Properties["RepUser_id"].ToString() : "nicolas_oliveto";
+            String _WebDbObject_id = this.ToString().Split('.')[2];
+            String _WebEvent_id = Request.Properties.ContainsKey("WebEvent_id") ? Request.Properties["WebEvent_id"].ToString() : "";
+            String _WebUser_id = Request.Properties.ContainsKey("WebUser_id") ? Request.Properties["WebUser_id"].ToString() : "nicolas_oliveto";
 
             TdConnection cntn = new Teradata.Client.Provider.TdConnection(conn_str);
 
@@ -362,7 +362,7 @@ namespace WebAsistida.lib
                 qry_txt = tabInfo.mergeQryText(out paramNames);
             }
 
-            int updateFlag = validateDbObjectProcessRank(_RepDbObject_id, _RepUser_id, _RepEvent_id, cntn);
+            int updateFlag = validateDbObjectProcessRank(_WebDbObject_id, _WebUser_id, _WebEvent_id, cntn);
 
             if (updateFlag == 0)
             {
@@ -471,9 +471,9 @@ namespace WebAsistida.lib
             String qry_txt = "";
             String[] paramNames;
             String batchupsert_response = "";
-            String _RepDbObject_id = this.ToString().Split('.')[2];
-            String _RepEvent_id = Request.Properties.ContainsKey("RepEvent_id") ? Request.Properties["RepEvent_id"].ToString() : "";
-            String _RepUser_id = Request.Properties.ContainsKey("RepUser_id") ? Request.Properties["RepUser_id"].ToString() : "nicolas_oliveto";
+            String _WebDbObject_id = this.ToString().Split('.')[2];
+            String _WebEvent_id = Request.Properties.ContainsKey("WebEvent_id") ? Request.Properties["WebEvent_id"].ToString() : "";
+            String _WebUser_id = Request.Properties.ContainsKey("WebUser_id") ? Request.Properties["WebUser_id"].ToString() : "nicolas_oliveto";
 
             String conn_str = Parametros().strTeradata;
 
@@ -498,7 +498,7 @@ namespace WebAsistida.lib
                 qry_txt = tabInfo.mergeQryText(out paramNames);
             }
 
-            int batchupdateFlag = validateDbObjectProcessRank(_RepDbObject_id, _RepUser_id, _RepEvent_id, cntn);
+            int batchupdateFlag = validateDbObjectProcessRank(_WebDbObject_id, _WebUser_id, _WebEvent_id, cntn);
 
             if (batchupdateFlag == 0)
             {
@@ -528,8 +528,8 @@ namespace WebAsistida.lib
                         foreach (JObject param in batch_param)
                         {
                             // Completa datos de tracking, si la tabla tiene esos campos.
-                            setEventProperty(param, tabInfo.TrkEvent_Column, "RepEvent_id");
-                            setEventProperty(param, tabInfo.TrkUser_Column, "RepUser_id");
+                            setEventProperty(param, tabInfo.TrkEvent_Column, "WebEvent_id");
+                            setEventProperty(param, tabInfo.TrkUser_Column, "WebUser_id");
 
                             //Asigna parametros.
                             foreach (TdParameter tp in cmd.Parameters)
@@ -644,8 +644,8 @@ namespace WebAsistida.lib
             foreach (JObject param in batch_param)
             {
                 // Completa datos de tracking, si la tabla tiene esos campos.
-                setEventProperty(param, tabInfo.TrkEvent_Column, "RepEvent_id");
-                setEventProperty(param, tabInfo.TrkUser_Column, "RepUser_id");
+                setEventProperty(param, tabInfo.TrkEvent_Column, "WebEvent_id");
+                setEventProperty(param, tabInfo.TrkUser_Column, "WebUser_id");
 
                 //Asigna parametros.
                 foreach (TdParameter tp in cmd_upd.Parameters)
@@ -808,7 +808,7 @@ namespace WebAsistida.lib
             JObject res_ret = new JObject(); // Objeto a retornar con resultado de lectura.
             String conn_str = Parametros().strTeradataLoad;
             String qry_txt;
-            String strRepDbObject;
+            String strWebDbObject;
             TdConnection cntn = new Teradata.Client.Provider.TdConnection(conn_str);
 
             if (tabInfo.isReadOnly)
@@ -816,11 +816,11 @@ namespace WebAsistida.lib
                 throw new Exception("Invalid operation on a readonly table.");
             }
 
-            if(param.Property("RepDbObject_id") == null)
+            if(param.Property("WebDbObject_id") == null)
             {
                 throw new Exception("Falta informar Objeto");
             }
-            strRepDbObject = param.Property("RepDbObject_id").Value.ToString();
+            strWebDbObject = param.Property("WebDbObject_id").Value.ToString();
 
             cntn.Open();
 
@@ -828,81 +828,81 @@ namespace WebAsistida.lib
             this.checkParentRI(tabInfo, param, cntn);
 
             // No se toma string de consulta por ser un metodo particular.
-            String updRepFileQueueProcess = @"
-LOCKING TABLE {CDW}.RepEvent FOR ACCESS
-LOCKING TABLE {CDW}.RepSession FOR ACCESS
-LOCKING TABLE {CDW}.RepUser FOR ACCESS
-LOCKING TABLE {CDW}.RepFileProcessStatus FOR ACCESS
+            String updWebFileQueueProcess = @"
+LOCKING TABLE {CDW}.WebEvent FOR ACCESS
+LOCKING TABLE {CDW}.WebSession FOR ACCESS
+LOCKING TABLE {CDW}.WebUser FOR ACCESS
+LOCKING TABLE {CDW}.WebFileProcessStatus FOR ACCESS
 UPDATE __tbl
 FROM
-{CDW}.RepFileProcessQueue __tbl,
+{CDW}.WebFileProcessQueue __tbl,
 (
 SELECT
-tmp1.RepEvent_id
-,tmp1.RepFileProcessStatus_id
+tmp1.WebEvent_id
+,tmp1.WebFileProcessStatus_id
 FROM
 (
 SELECT
-CAST ( '{RepEvent_id}' AS VARCHAR(50)) RepEvent_id
-,CAST ( '{RepFileProcessStatus_id}' AS VARCHAR(50)) RepFileProcessStatus_id
+CAST ( '{WebEvent_id}' AS VARCHAR(50)) WebEvent_id
+,CAST ( '{WebFileProcessStatus_id}' AS VARCHAR(50)) WebFileProcessStatus_id
 ) tmp1
 INNER JOIN
 (
 SELECT
-rfpq.RepEvent_id
+rfpq.WebEvent_id
 FROM
-{CDW}.RepFileProcessQueue rfpq
+{CDW}.WebFileProcessQueue rfpq
 INNER JOIN
-{CDW}.RepEvent re
+{CDW}.WebEvent re
 ON
-re.RepEvent_id = rfpq.RepEvent_id
+re.WebEvent_id = rfpq.WebEvent_id
 INNER JOIN
-{CDW}.RepSession rs
+{CDW}.WebSession rs
 ON
-rs.RepSession_id = re.RepSession_id
+rs.WebSession_id = re.WebSession_id
 INNER JOIN
-{CDW}.RepUser ru
+{CDW}.WebUser ru
 ON
-ru.RepUser_id = rs.RepUser_id
+ru.WebUser_id = rs.WebUser_id
 WHERE
-RepFileProcessStatus_id IN (
+WebFileProcessStatus_id IN (
 SELECT
-RepFileProcessStatus_id
+WebFileProcessStatus_id
 FROM
-{CDW}.RepFileProcessStatus
+{CDW}.WebFileProcessStatus
 WHERE
 AcceptChange_Ind = 'Y' )
-AND ru.RepUser_id <> 'admin'
+AND ru.WebUser_id <> 'admin'
 ) tmp2
 ON
-tmp2.RepEvent_id = tmp1.RepEvent_id
+tmp2.WebEvent_id = tmp1.WebEvent_id
 ) __upd
 SET
-RepFileProcessStatus_id = __upd.RepFileProcessStatus_id
+WebFileProcessStatus_id = __upd.WebFileProcessStatus_id
 WHERE
-__tbl.RepEvent_id = __upd.RepEvent_id;";
+__tbl.WebEvent_id = __upd.WebEvent_id;";
 
 
-            if (param.Property("RepEvent_id") == null)
+            if (param.Property("WebEvent_id") == null)
             {
-                throw new Exception("Falta informar campo 'RepEvent_id'.");
+                throw new Exception("Falta informar campo 'WebEvent_id'.");
             }
-            JProperty RepEvent = param.Property("RepEvent_id");
+            JProperty WebEvent = param.Property("WebEvent_id");
 
-            if (param.Property("RepFileProcessStatus_id") == null)
+            if (param.Property("WebFileProcessStatus_id") == null)
             {
-                throw new Exception("Falta informar campo 'RepFileProcessStatus_id'.");
+                throw new Exception("Falta informar campo 'WebFileProcessStatus_id'.");
             }
-            JProperty RepFileProcessStatus = param.Property("RepFileProcessStatus_id");
+            JProperty WebFileProcessStatus = param.Property("WebFileProcessStatus_id");
 
             object fmtData = new
             {
                 CDW = tabInfo.DbName,
-                RepEvent_id = RepEvent.Value.ToString(),
-                RepFileProcessStatus_id = RepFileProcessStatus.Value.ToString(),
+                WebEvent_id = WebEvent.Value.ToString(),
+                WebFileProcessStatus_id = WebFileProcessStatus.Value.ToString(),
             };
 
-            qry_txt = StringTools.Format(updRepFileQueueProcess, fmtData);
+            qry_txt = StringTools.Format(updWebFileQueueProcess, fmtData);
 
             TdTransaction trx = cntn.BeginTransaction(IsolationLevel.Serializable);
             TdCommand cmd = new Teradata.Client.Provider.TdCommand(qry_txt, cntn, trx);
@@ -921,9 +921,9 @@ __tbl.RepEvent_id = __upd.RepEvent_id;";
 
                 rows_affected = cmd.ExecuteNonQuery();
 
-                if (strRepDbObject.Equals("RepDailySheetDESCController", StringComparison.CurrentCultureIgnoreCase)
-                        || strRepDbObject.Equals("RepDailySheetSTDController", StringComparison.CurrentCultureIgnoreCase)
-                        || strRepDbObject.Equals("RepDailySheetXDController", StringComparison.CurrentCultureIgnoreCase))
+                if (strWebDbObject.Equals("WebDailySheetDESCController", StringComparison.CurrentCultureIgnoreCase)
+                        || strWebDbObject.Equals("WebDailySheetSTDController", StringComparison.CurrentCultureIgnoreCase)
+                        || strWebDbObject.Equals("WebDailySheetXDController", StringComparison.CurrentCultureIgnoreCase))
                 {
                     this.AfterUpsert(tabInfo, param, cntn, trx);
                 }
@@ -968,7 +968,7 @@ __tbl.RepEvent_id = __upd.RepEvent_id;";
             String strDbSchema = Parametros().strDbSchema;
 
             String strQryTxt = @"
-LOCKING TABLE {0}.RepFileProcessQueueLockAccess FOR EXCLUSIVE";
+LOCKING TABLE {0}.WebFileProcessQueueLockAccess FOR EXCLUSIVE";
 
             TdCommand cmd = new TdCommand(String.Format(strQryTxt, strDbSchema), cntn, trx);
             String cmdTimeOutStr = Parametros().strTimeOut;
@@ -998,8 +998,8 @@ LOCKING TABLE {0}.RepFileProcessQueueLockAccess FOR EXCLUSIVE";
             }
 
             // Completa datos de tracking, si la tabla tiene esos campos.
-            setEventProperty(param, tabInfo.TrkEvent_Column, "RepEvent_id");
-            setEventProperty(param, tabInfo.TrkUser_Column, "RepUser_id");
+            setEventProperty(param, tabInfo.TrkEvent_Column, "WebEvent_id");
+            setEventProperty(param, tabInfo.TrkUser_Column, "WebUser_id");
 
             String qry_txt = "";
             String[] paramNames;
@@ -1007,9 +1007,9 @@ LOCKING TABLE {0}.RepFileProcessQueueLockAccess FOR EXCLUSIVE";
 
             String conn_str = Parametros().strTeradata;
             JObject res_ret = new JObject(); // Objeto a retornar con resultado de lectura.
-            String _RepDbObject_id = this.ToString().Split('.')[2];
-            String _RepEvent_id = Request.Properties.ContainsKey("RepEvent_id") ? Request.Properties["RepEvent_id"].ToString() : "";
-            String _RepUser_id = Request.Properties.ContainsKey("RepUser_id") ? Request.Properties["RepUser_id"].ToString() : "nicolas_oliveto";
+            String _WebDbObject_id = this.ToString().Split('.')[2];
+            String _WebEvent_id = Request.Properties.ContainsKey("WebEvent_id") ? Request.Properties["WebEvent_id"].ToString() : "";
+            String _WebUser_id = Request.Properties.ContainsKey("WebUser_id") ? Request.Properties["WebUser_id"].ToString() : "nicolas_oliveto";
 
             TdConnection cntn = new Teradata.Client.Provider.TdConnection(conn_str);
 
@@ -1028,7 +1028,7 @@ LOCKING TABLE {0}.RepFileProcessQueueLockAccess FOR EXCLUSIVE";
                 qry_txt = tabInfo.deleteQryText(out paramNames);
             }
 
-            int deleteFlag = validateDbObjectProcessRank(_RepDbObject_id, _RepUser_id, _RepEvent_id, cntn);
+            int deleteFlag = validateDbObjectProcessRank(_WebDbObject_id, _WebUser_id, _WebEvent_id, cntn);
 
             if (deleteFlag == 0)
             {
@@ -1137,22 +1137,22 @@ LOCKING TABLE {0}.RepFileProcessQueueLockAccess FOR EXCLUSIVE";
             }
 
             // Completa datos de tracking, si la tabla tiene esos campos.
-            setEventProperty(param, tabInfo.TrkEvent_Column, "RepEvent_id");
-            setEventProperty(param, tabInfo.TrkUser_Column, "RepUser_id");
+            setEventProperty(param, tabInfo.TrkEvent_Column, "WebEvent_id");
+            setEventProperty(param, tabInfo.TrkUser_Column, "WebUser_id");
 
             String conn_str = Parametros().strTeradataLoad;
 
             String condDelete_response = "";
             JObject res_ret = new JObject(); // Objeto a retornar con resultado de lectura.
-            String _RepDbObject_id = this.ToString().Split('.')[2];
-            String _RepEvent_id = Request.Properties.ContainsKey("RepEvent_id") ? Request.Properties["RepEvent_id"].ToString() : "";
-            String _RepUser_id = Request.Properties.ContainsKey("RepUser_id") ? Request.Properties["RepUser_id"].ToString() : "nicolas_oliveto";
+            String _WebDbObject_id = this.ToString().Split('.')[2];
+            String _WebEvent_id = Request.Properties.ContainsKey("WebEvent_id") ? Request.Properties["WebEvent_id"].ToString() : "";
+            String _WebUser_id = Request.Properties.ContainsKey("WebUser_id") ? Request.Properties["WebUser_id"].ToString() : "nicolas_oliveto";
 
             using (Teradata.Client.Provider.TdConnection cntn = new Teradata.Client.Provider.TdConnection(conn_str))
             {
                 cntn.Open();
 
-                int condDeleteFlag = validateDbObjectProcessRank(_RepDbObject_id, _RepUser_id, _RepEvent_id, cntn);
+                int condDeleteFlag = validateDbObjectProcessRank(_WebDbObject_id, _WebUser_id, _WebEvent_id, cntn);
 
                 if (condDeleteFlag == 0)
                 {
@@ -1261,24 +1261,24 @@ LOCKING TABLE {0}.RepFileProcessQueueLockAccess FOR EXCLUSIVE";
         }
         ////////////////////////////////////////////////////////////////////////////////
         [NonAction]
-        protected int validateDbObjectProcessRank(String _RepDbObject, String _RepUser_id, String _RepEvent_id,
+        protected int validateDbObjectProcessRank(String _WebDbObject, String _WebUser_id, String _WebEvent_id,
                 TdConnection cntn
             )
         {
             int rec_cnt = 0;
             String schema_name = Parametros().strDbSchema;
 
-            if (!_RepUser_id.Equals("admin", StringComparison.CurrentCultureIgnoreCase))
+            if (!_WebUser_id.Equals("admin", StringComparison.CurrentCultureIgnoreCase))
             {
                 String currentTime = DateTime.Now.ToString("HH:mm:ss");
                 String qry_txt = @"
-LOCKING TABLE " + schema_name + @".RepDbObjectProcess FOR ACCESS
+LOCKING TABLE " + schema_name + @".WebDbObjectProcess FOR ACCESS
 SELECT
     ProcessEnabled_Ind
 FROM
-" + schema_name + @".RepDbObjectProcess
+" + schema_name + @".WebDbObjectProcess
 WHERE
-    RepDbObject_id = '" + _RepDbObject + @"'
+    WebDbObject_id = '" + _WebDbObject + @"'
 AND CURRENT_DATE Between EffectiveDate and ExpirationDate
 AND CAST('" + currentTime + @"' AS TIME(0)) Between EffectiveTime and ExpirationTime
 AND ProcessEnabled_Ind IN ('N')
@@ -1308,8 +1308,8 @@ AND ProcessEnabled_Ind IN ('N')
         [AuthorizeActivity]
         public String existingProcessUserEvent(JObject param)
         {
-            String _RepEvent_id = Request.Properties.ContainsKey("RepEvent_id") ? Request.Properties["RepEvent_id"].ToString() : "";
-            String _RepUser_id = Request.Properties["RepUser_id"].ToString();
+            String _WebEvent_id = Request.Properties.ContainsKey("WebEvent_id") ? Request.Properties["WebEvent_id"].ToString() : "";
+            String _WebUser_id = Request.Properties["WebUser_id"].ToString();
             String submit_response;
             String controller = this.ToString().Split('.')[2];
             String conn_str = Parametros().strTeradata;
@@ -1317,30 +1317,30 @@ AND ProcessEnabled_Ind IN ('N')
 
 
             String qry_txt = @"
-LOCKING TABLE {0}.RepFileProcessQueue FOR ACCESS
-LOCKING TABLE {0}.RepEvent FOR ACCESS
-LOCKING TABLE {0}.RepSession FOR ACCESS
-LOCKING TABLE {0}.RepUser FOR ACCESS
+LOCKING TABLE {0}.WebFileProcessQueue FOR ACCESS
+LOCKING TABLE {0}.WebEvent FOR ACCESS
+LOCKING TABLE {0}.WebSession FOR ACCESS
+LOCKING TABLE {0}.WebUser FOR ACCESS
 SELECT
-rfpq.RepEvent_id
+rfpq.WebEvent_id
 FROM
-{0}.RepFileProcessQueue rfpq
+{0}.WebFileProcessQueue rfpq
 INNER JOIN
-{0}.RepEvent re
+{0}.WebEvent re
 ON
-re.RepEvent_id = rfpq.RepEvent_id
+re.WebEvent_id = rfpq.WebEvent_id
 INNER JOIN
-{0}.RepSession rs
+{0}.WebSession rs
 ON
-rs.RepSession_id = re.RepSession_id
+rs.WebSession_id = re.WebSession_id
 INNER JOIN
-{0}.RepUser ru
+{0}.WebUser ru
 ON
-ru.RepUser_id = rs.RepUser_id
+ru.WebUser_id = rs.WebUser_id
 WHERE
-    ru.RepUser_id = '" + _RepUser_id + @"'
-AND rfpq.RepDbObject_id = '" + controller + @"'
-AND rfpq.RepFileProcessStatus_id NOT IN ('Finalizado','Cancelado','Finalizado con error','Finalizado con alerta','Cancelado Automatico')
+    ru.WebUser_id = '" + _WebUser_id + @"'
+AND rfpq.WebDbObject_id = '" + controller + @"'
+AND rfpq.WebFileProcessStatus_id NOT IN ('Finalizado','Cancelado','Finalizado con error','Finalizado con alerta','Cancelado Automatico')
 ;";
 
             TdConnection cntn = new TdConnection(conn_str);
@@ -1375,7 +1375,7 @@ AND rfpq.RepFileProcessStatus_id NOT IN ('Finalizado','Cancelado','Finalizado co
             JObject mdRs = new JObject(); //++Armo metadata del result set.
 
             mdRs.Add(new JProperty("SubmitResponse", submit_response));
-            mdRs.Add(new JProperty("RepEvent_id", _RepEvent_id));
+            mdRs.Add(new JProperty("WebEvent_id", _WebEvent_id));
             res_ret.Add("ResultSetMetaData", mdRs);
 
             return JsonConvert.SerializeObject(res_ret, Newtonsoft.Json.Formatting.Indented);

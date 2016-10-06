@@ -5274,9 +5274,9 @@ namespace WebAsistida.lib
 		/// otra tabla.
 		/// </summary>
 		/// <returns></returns>
-		public String mergeUpdateStgTableQryTxt( String RepEvent_id, String RepUser_id)
+		public String mergeUpdateStgTableQryTxt( String WebEvent_id, String WebUser_id)
 		{
-			//return merge_delete_HistStgTableQryText(true, RepEvent_id, RepUser_id);
+			//return merge_delete_HistStgTableQryText(true, WebEvent_id, WebUser_id);
 
 			//CfDbTable tgtTbFmt;
 
@@ -5288,20 +5288,20 @@ namespace WebAsistida.lib
 				return merge_delete_Follower_Normal_HistStgTableQryText(
 										this, this.DbName, this.TbName,
 										this, srcDbName, srcTbName,           //El formato de origen es igual al destino. Gerardo
-										true, RepEvent_id, RepUser_id);
+										true, WebEvent_id, WebUser_id);
 			}
 			else
 			{
 				return merge_Normal_StgTableQryText(
 										this, this.DbName, this.TbName,
 										this, srcDbName, srcTbName,
-										RepEvent_id, RepUser_id);
+										WebEvent_id, WebUser_id);
 			}
 		}
 
-		public String closeUpdateStgTableQryTxt(String RepEvent_id, String RepUser_id)
+		public String closeUpdateStgTableQryTxt(String WebEvent_id, String WebUser_id)
 		{
-			//return merge_delete_HistStgTableQryText(true, RepEvent_id, RepUser_id);
+			//return merge_delete_HistStgTableQryText(true, WebEvent_id, WebUser_id);
 
 			//CfDbTable tgtTbFmt;
 
@@ -5311,12 +5311,12 @@ namespace WebAsistida.lib
 				return close_Follower_Normal_HistStgTableQryText(
 										this, this.DbName, this.TbName,
 										this, srcDbName, srcTbName,           //El formato de origen es igual al destino. Gerardo
-										true, RepEvent_id, RepUser_id);
+										true, WebEvent_id, WebUser_id);
 		}
 
-		public String deleteUpdateStgTableQryTxt(String RepEvent_id, String RepUser_id)
+		public String deleteUpdateStgTableQryTxt(String WebEvent_id, String WebUser_id)
 		{
-			//return merge_delete_HistStgTableQryText(false, RepEvent_id, RepUser_id);
+			//return merge_delete_HistStgTableQryText(false, WebEvent_id, WebUser_id);
 
 			//CfDbTable tgtTbFmt;
 
@@ -5328,7 +5328,7 @@ namespace WebAsistida.lib
 				return merge_delete_Follower_Normal_HistStgTableQryText(
 									this, this.DbName, this.TbName,
 									this, srcDbName, srcTbName,           //El formato de origen es igual al destino. Gerardo
-									false, RepEvent_id, RepUser_id);
+									false, WebEvent_id, WebUser_id);
 			}
 			else
 			{
@@ -5640,7 +5640,7 @@ namespace WebAsistida.lib
 		}
 
 
-		public String mergeFollowerStgTableQryTxt(int followerNum, String RepEvent_id, String RepUser_id)
+		public String mergeFollowerStgTableQryTxt(int followerNum, String WebEvent_id, String WebUser_id)
 		{
 			//Si no es un indice de follower valido.
 			if (!(0 <= followerNum && followerNum <= this.paceFollowerTabs.Length))
@@ -5656,10 +5656,10 @@ namespace WebAsistida.lib
 			return merge_delete_Follower_Normal_HistStgTableQryText(
 									tgtTbFmt, tgtTbFmt.DbName, tgtTbFmt.TbName, 
 									tgtTbFmt, srcDbName, srcTbName,           //El formato de origen es igual al destino. Gerardo
-									true, RepEvent_id, RepUser_id);
+									true, WebEvent_id, WebUser_id);
 		}
 
-		public String deleteFollowerStgTableQryTxt(int followerNum, String RepEvent_id, String RepUser_id)
+		public String deleteFollowerStgTableQryTxt(int followerNum, String WebEvent_id, String WebUser_id)
 		{
 			//Si no es un indice de follower valido.
 			if (!(0 <= followerNum && followerNum <= this.paceFollowerTabs.Length))
@@ -5675,16 +5675,16 @@ namespace WebAsistida.lib
 			return merge_delete_Follower_Normal_HistStgTableQryText(
 									tgtTbFmt, tgtTbFmt.DbName, tgtTbFmt.TbName, 
 									tgtTbFmt, srcDbName, srcTbName,           //El formato de origen es igual al destino. Gerardo
-									false, RepEvent_id, RepUser_id);
+									false, WebEvent_id, WebUser_id);
 		}
 
 		/// <summary>
 		/// Genera query para borrar registros de excepcion cuando se da de baja registro principal.
 		/// </summary>
-		/// <param name="RepEvent_id"></param>
-		/// <param name="RepUser_id"></param>
+		/// <param name="WebEvent_id"></param>
+		/// <param name="WebUser_id"></param>
 		/// <returns></returns>
-		public String deleteExceptionStgTableQryTxt(String RepEvent_id, String RepUser_id)
+		public String deleteExceptionStgTableQryTxt(String WebEvent_id, String WebUser_id)
 		{
 
 			CfDbTable tgtTbFmt = this.ExceptionTab;
@@ -5695,17 +5695,17 @@ namespace WebAsistida.lib
 			return merge_delete_Follower_Normal_HistStgTableQryText(
 									tgtTbFmt, tgtTbFmt.DbName, tgtTbFmt.TbName,
 									this, srcDbName, srcTbName, 
-									false, RepEvent_id, RepUser_id);
+									false, WebEvent_id, WebUser_id);
 
 		}
 
 		/// <summary>
 		/// Genera query para borrar registros de excepcion cuando se da de baja registro principal.
 		/// </summary>
-		/// <param name="RepEvent_id"></param>
-		/// <param name="RepUser_id"></param>
+		/// <param name="WebEvent_id"></param>
+		/// <param name="WebUser_id"></param>
 		/// <returns></returns>
-		public String deleteExceptionFollowerStgTableQryTxt(int followerNum, String RepEvent_id, String RepUser_id)
+		public String deleteExceptionFollowerStgTableQryTxt(int followerNum, String WebEvent_id, String WebUser_id)
 		{
 
 			if (this.ExceptionTab == null)
@@ -5722,7 +5722,7 @@ namespace WebAsistida.lib
 			return merge_delete_Follower_Normal_HistStgTableQryText(
 									tgtTbFmt, tgtTbFmt.DbName, tgtTbFmt.TbName,
 									tgtTbFmt, srcDbName, srcTbName,
-									false, RepEvent_id, RepUser_id);
+									false, WebEvent_id, WebUser_id);
 
 		}
 
@@ -5776,7 +5776,7 @@ namespace WebAsistida.lib
 		private String merge_Normal_StgTableQryText(
 								CfDbTable tgtTbFmt, String tgtDbName, String tgtTbName,
 								CfDbTable srcTbFmt, String srcDbName, String srcTbName,
-								String RepEvent_id, String RepUser_id)
+								String WebEvent_id, String WebUser_id)
 		{
 			String qry_txt = "";
 			String sep = "";
@@ -5830,11 +5830,11 @@ namespace WebAsistida.lib
 				}
 				else if (col.isTrkEvent) // Tracking event id
 				{
-					qry_txt += "'" + RepEvent_id + "' ";
+					qry_txt += "'" + WebEvent_id + "' ";
 				}
 				else if (col.isTrkUser) // User id
 				{
-					qry_txt += "'" + RepUser_id + "' ";
+					qry_txt += "'" + WebUser_id + "' ";
 				}
 
 				qry_txt += col.ColName + "\n";
@@ -5947,7 +5947,7 @@ namespace WebAsistida.lib
 		public String merge_delete_Follower_Normal_HistStgTableQryText(
 									CfDbTable tgtTbFmt, String tgtDbName, String tgtTbName, 
 									CfDbTable srcTbFmt, String srcDbName, String srcTbName, 
-									bool forMerge, String RepEvent_id, String RepUser_id)
+									bool forMerge, String WebEvent_id, String WebUser_id)
 		{
 			String qry_txt = "";
 			String sep = "";
@@ -6728,11 +6728,11 @@ namespace WebAsistida.lib
 					}
 					else if (col.isTrkEvent) // Tracking event id
 					{
-						qry_txt += "'" + RepEvent_id + "' ";
+						qry_txt += "'" + WebEvent_id + "' ";
 					}
 					else if (col.isTrkUser) // User id
 					{
-						qry_txt += "'" + RepUser_id + "' ";
+						qry_txt += "'" + WebUser_id + "' ";
 					}
 
 					qry_txt += col.ColName + "\n";
@@ -7030,7 +7030,7 @@ namespace WebAsistida.lib
 		public String close_Follower_Normal_HistStgTableQryText(
 									CfDbTable tgtTbFmt, String tgtDbName, String tgtTbName,
 									CfDbTable srcTbFmt, String srcDbName, String srcTbName,
-									bool forMerge, String RepEvent_id, String RepUser_id)
+									bool forMerge, String WebEvent_id, String WebUser_id)
 		{
 			String sep = " ";
 			String qry_txt = "";

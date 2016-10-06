@@ -76,7 +76,7 @@ namespace WebAsistida.lib
                 newFiles.Add(newName);
                 newExtension.Add(Path.GetExtension(srcName));
             }
-            //String _RepEvent_id = Request.Properties.ContainsKey("RepEvent_id") ? Request.Properties["RepEvent_id"].ToString() : "";
+            //String _WebEvent_id = Request.Properties.ContainsKey("WebEvent_id") ? Request.Properties["WebEvent_id"].ToString() : "";
 
             Request.Properties.Add("FormData", provider.FormData);
             Request.Properties.Add("FileData", provider.FileData);
@@ -86,17 +86,17 @@ namespace WebAsistida.lib
             String[] values = provider.FormData.GetValues("CfApiAuthorization");
             String[] _PurchaseModule_id = provider.FormData.GetValues("PurchaseModule_id");
 
-            String _RepSession_id;
-            String _RepUser_id;
-            String[] _RepSessionRoles;
-            String _RepUser_EMail;
+            String _WebSession_id;
+            String _WebUser_id;
+            String[] _WebSessionRoles;
+            String _WebUser_EMail;
 
-            AuthenticationToken.Parse(values[0], out _RepSession_id, out _RepUser_id, out _RepSessionRoles, out _RepUser_EMail);
+            AuthenticationToken.Parse(values[0], out _WebSession_id, out _WebUser_id, out _WebSessionRoles, out _WebUser_EMail);
 
-            Request.Properties.Add("RepSession_id", _RepSession_id);
-            Request.Properties.Add("RepUser_id", _RepUser_id);
-            Request.Properties.Add("RepSessionRoles", _RepSessionRoles);
-            Request.Properties.Add("RepUser_EMail", _RepUser_EMail);
+            Request.Properties.Add("WebSession_id", _WebSession_id);
+            Request.Properties.Add("WebUser_id", _WebUser_id);
+            Request.Properties.Add("WebSessionRoles", _WebSessionRoles);
+            Request.Properties.Add("WebUser_EMail", _WebUser_EMail);
 
             Request.Headers.Add("CfApiAuthorization", values[0]);
 
@@ -145,7 +145,7 @@ namespace WebAsistida.lib
                 newFiles.Add(newName); 
                 newExtension.Add(Path.GetExtension(srcName));
             }
-            //String _RepEvent_id = Request.Properties.ContainsKey("RepEvent_id") ? Request.Properties["RepEvent_id"].ToString() : "";
+            //String _WebEvent_id = Request.Properties.ContainsKey("WebEvent_id") ? Request.Properties["WebEvent_id"].ToString() : "";
 
             Request.Properties.Add("FormData", provider.FormData);
             Request.Properties.Add("FileData", provider.FileData);
@@ -155,17 +155,17 @@ namespace WebAsistida.lib
             String[] values = provider.FormData.GetValues("CfApiAuthorization");
             String[] _PurchaseModule_id = provider.FormData.GetValues("PurchaseModule_id");
 
-            String _RepSession_id;
-            String _RepUser_id;
-            String[] _RepSessionRoles;
-            String _RepUser_EMail;
+            String _WebSession_id;
+            String _WebUser_id;
+            String[] _WebSessionRoles;
+            String _WebUser_EMail;
 
-            AuthenticationToken.Parse(values[0], out _RepSession_id, out _RepUser_id, out _RepSessionRoles, out _RepUser_EMail);
+            AuthenticationToken.Parse(values[0], out _WebSession_id, out _WebUser_id, out _WebSessionRoles, out _WebUser_EMail);
 
-            Request.Properties.Add("RepSession_id", _RepSession_id);
-            Request.Properties.Add("RepUser_id", _RepUser_id);
-            Request.Properties.Add("RepSessionRoles", _RepSessionRoles);
-            Request.Properties.Add("RepUser_EMail", _RepUser_EMail);
+            Request.Properties.Add("WebSession_id", _WebSession_id);
+            Request.Properties.Add("WebUser_id", _WebUser_id);
+            Request.Properties.Add("WebSessionRoles", _WebSessionRoles);
+            Request.Properties.Add("WebUser_EMail", _WebUser_EMail);
 
             Request.Headers.Add("CfApiAuthorization", values[0]);
 
@@ -216,10 +216,10 @@ namespace WebAsistida.lib
             ImportMedia imedia;
             String _status = "Pendiente";
             String strconn = Parametros().strTeradataLoad;
-            String _RepEvent_id = Request.Properties.ContainsKey("RepEvent_id") ? Request.Properties["RepEvent_id"].ToString() : "";
-            String _RepSession_id = Request.Properties.ContainsKey("RepSession_id") ? Request.Properties["RepSession_id"].ToString() : "";
-            String _RepUser_id = Request.Properties.ContainsKey("RepUser_id") ? Request.Properties["RepUser_id"].ToString() : "lourdes_martinez";
-            String _RepUser_EMail = Request.Properties.ContainsKey("RepUser_EMail") ? Request.Properties["RepUser_EMail"].ToString() : "lourdes_martinez@carrefour.com";
+            String _WebEvent_id = Request.Properties.ContainsKey("WebEvent_id") ? Request.Properties["WebEvent_id"].ToString() : "";
+            String _WebSession_id = Request.Properties.ContainsKey("WebSession_id") ? Request.Properties["WebSession_id"].ToString() : "";
+            String _WebUser_id = Request.Properties.ContainsKey("WebUser_id") ? Request.Properties["WebUser_id"].ToString() : "lourdes_martinez";
+            String _WebUser_EMail = Request.Properties.ContainsKey("WebUser_EMail") ? Request.Properties["WebUser_EMail"].ToString() : "lourdes_martinez@carrefour.com";
             String _PurchaseModule_id = Request.Properties.ContainsKey("PurchaseModule_id") ? Request.Properties["PurchaseModule_id"].ToString() : "";
             String resFileName = Path.GetDirectoryName(srcLocalFileName) + Path.DirectorySeparatorChar.ToString() + Path.GetFileNameWithoutExtension(srcLocalFileName) + "_result" + Path.GetExtension(srcLocalFileName);
             resFileName = Regex.Replace(resFileName, @"\\", @"\\");
@@ -232,7 +232,7 @@ namespace WebAsistida.lib
             String[] dirParts = Path.GetDirectoryName(resFileName).Split(Path.DirectorySeparatorChar);
             String srcFileName = rootUri + dirParts[dirParts.Length - 2] + "/" + dirParts[dirParts.Length - 1] + "/" + Path.GetFileName(srcLocalFileName);
             String resFileUri = rootUri + dirParts[dirParts.Length - 2] + "/" + dirParts[dirParts.Length - 1] + "/" + Path.GetFileName(resFileName);
-            String _RepDbObject_id = this.ToString().Split('.')[2];
+            String _WebDbObject_id = this.ToString().Split('.')[2];
             String _RunDate_id = DateTime.Today.ToString("yyyy-MM-dd");
             int enabledNum = 0;
 
@@ -245,18 +245,18 @@ namespace WebAsistida.lib
                 imedia = ImportMedia.EXCEL;
             }
 
-            String _RepQueueEntryType_id = eaction.ToString();
-            String _RepQueueMediaType_id = imedia.ToString();
+            String _WebQueueEntryType_id = eaction.ToString();
+            String _WebQueueMediaType_id = imedia.ToString();
 
             JObject param = new JObject();
-            this.CreateParameters(param, "RepEvent_id", _RepEvent_id);
-            this.CreateParameters(param, "RepUser_id", _RepUser_id);
+            this.CreateParameters(param, "WebEvent_id", _WebEvent_id);
+            this.CreateParameters(param, "WebUser_id", _WebUser_id);
             this.CreateParameters(param, "RunDate_id", _RunDate_id);
-            this.CreateParameters(param, "RepSession_id", _RepSession_id);
+            this.CreateParameters(param, "WebSession_id", _WebSession_id);
             this.CreateParameters(param, "PurchaseModule_id", _PurchaseModule_id);
-            String _RepEventParameters_Txt = JsonConvert.SerializeObject(param, Newtonsoft.Json.Formatting.None);
-            _RepEventParameters_Txt = _RepEventParameters_Txt.Replace("\n", "");
-            _RepEventParameters_Txt = _RepEventParameters_Txt.Replace("\r", "");
+            String _WebEventParameters_Txt = JsonConvert.SerializeObject(param, Newtonsoft.Json.Formatting.None);
+            _WebEventParameters_Txt = _WebEventParameters_Txt.Replace("\n", "");
+            _WebEventParameters_Txt = _WebEventParameters_Txt.Replace("\r", "");
 
 
             using (TdConnection cntn = new TdConnection(strconn))
@@ -277,21 +277,21 @@ namespace WebAsistida.lib
                             throw new Exception("Carga Rechazada. Motivo: El archivo debe ser menor a 20MB");
                         }
 
-                        if (!_RepUser_id.Equals("admin",StringComparison.CurrentCultureIgnoreCase))
+                        if (!_WebUser_id.Equals("admin",StringComparison.CurrentCultureIgnoreCase))
                         {
-                            enabledNum = this.validateDbObjectQueueRank(_RepDbObject_id, cntn, trx);
+                            enabledNum = this.validateDbObjectQueueRank(_WebDbObject_id, cntn, trx);
                         }
 
                         if (enabledNum == 0)
                         {
                             this.LockTableForQueue(cntn, trx);
 
-                            this.StartFileProcessQueueEvent(_RepEvent_id, _RepQueueEntryType_id, _RepQueueMediaType_id,
-                                        _RepEventParameters_Txt, srcFileName, srcLocalFileName, resFileName, workingDir,
-                                        resFileUri, _RepDbObject_id, _status, cntn, trx
+                            this.StartFileProcessQueueEvent(_WebEvent_id, _WebQueueEntryType_id, _WebQueueMediaType_id,
+                                        _WebEventParameters_Txt, srcFileName, srcLocalFileName, resFileName, workingDir,
+                                        resFileUri, _WebDbObject_id, _status, cntn, trx
                                 );
 
-                            List<Dictionary<String, String>> dbObjPrecedents = this.objectPrecedent(_RepEvent_id, cntn, trx, eaction);
+                            List<Dictionary<String, String>> dbObjPrecedents = this.objectPrecedent(_WebEvent_id, cntn, trx, eaction);
 
                             if (dbObjPrecedents != null)
                             {
@@ -386,12 +386,12 @@ namespace WebAsistida.lib
             String mainTableName = tableInfoGroup().Tables[0].TbLocalName.Replace(" ", "_");
             String strconn = Parametros().strTeradataLoad;
             
-            String _RepEvent_id = Request.Properties.ContainsKey("RepEvent_id") ? Request.Properties["RepEvent_id"].ToString() : "";
-            String _RepUser_EMail = Request.Properties.ContainsKey("RepUser_EMail") ? Request.Properties["RepUser_EMail"].ToString() : "lourdes_martinez@carrefour.com";
-            String _RepUser_id = Request.Properties.ContainsKey("RepUser_id") ? Request.Properties["RepUser_id"].ToString() : "lourdes_martinez";
-            String _RepDbObject_id = this.ToString().Split('.')[2];
-            String _RepQueueEntryType_id = _eaction.ToString();
-            String _RepQueueMediaType_id = "";
+            String _WebEvent_id = Request.Properties.ContainsKey("WebEvent_id") ? Request.Properties["WebEvent_id"].ToString() : "";
+            String _WebUser_EMail = Request.Properties.ContainsKey("WebUser_EMail") ? Request.Properties["WebUser_EMail"].ToString() : "lourdes_martinez@carrefour.com";
+            String _WebUser_id = Request.Properties.ContainsKey("WebUser_id") ? Request.Properties["WebUser_id"].ToString() : "lourdes_martinez";
+            String _WebDbObject_id = this.ToString().Split('.')[2];
+            String _WebQueueEntryType_id = _eaction.ToString();
+            String _WebQueueMediaType_id = "";
             String submit_response;
             String typemedia = "";
             ImportMedia imedia;
@@ -414,10 +414,10 @@ namespace WebAsistida.lib
                 this.AddingParameters(param, "ListOption", "LIST_CURRENT_AND_FUTURE");
             }
 
-            String _RepEventParameters_Txt = JsonConvert.SerializeObject(param, Newtonsoft.Json.Formatting.Indented);
-            _RepEventParameters_Txt = _RepEventParameters_Txt.Replace("\n", "");
-            _RepEventParameters_Txt = _RepEventParameters_Txt.Replace("\r", "");
-            int iStringSize = ASCIIEncoding.ASCII.GetByteCount(_RepEventParameters_Txt);
+            String _WebEventParameters_Txt = JsonConvert.SerializeObject(param, Newtonsoft.Json.Formatting.Indented);
+            _WebEventParameters_Txt = _WebEventParameters_Txt.Replace("\n", "");
+            _WebEventParameters_Txt = _WebEventParameters_Txt.Replace("\r", "");
+            int iStringSize = ASCIIEncoding.ASCII.GetByteCount(_WebEventParameters_Txt);
 
             if (iStringSize > 50000)
             {
@@ -429,7 +429,7 @@ namespace WebAsistida.lib
 
             if (_eaction == EntryAction.EXPORT_QUERY)
             {
-                dicQryText = this.QryTextBuilder(param, listOption, _RepEvent_id, _RepUser_id, cntn);
+                dicQryText = this.QryTextBuilder(param, listOption, _WebEvent_id, _WebUser_id, cntn);
             }
 
             TdTransaction trx = cntn.BeginTransaction(IsolationLevel.Serializable);
@@ -470,7 +470,7 @@ namespace WebAsistida.lib
                     targetFilename = PATH + fNamePrefix + mainTableName + "-" + fecha + "_" + uniqueNumber + ".xlsx";
                     targetFilename = Regex.Replace(targetFilename, @"\\", @"\\");
                 }
-                _RepQueueMediaType_id = imedia.ToString();
+                _WebQueueMediaType_id = imedia.ToString();
 
                 String[] dirParts = Path.GetDirectoryName(targetFilename).Split(Path.DirectorySeparatorChar);
                 String resFileUri = rootUri + dirParts[dirParts.Length - 2] + "/" + dirParts[dirParts.Length - 1] + "/" + Path.GetFileName(targetFilename);
@@ -482,26 +482,26 @@ namespace WebAsistida.lib
 
                 if (dicQryText.Count != 0)
                 {
-                    this.insertQryTextToExport(dicQryText, cntn, trx, _RepEvent_id);
+                    this.insertQryTextToExport(dicQryText, cntn, trx, _WebEvent_id);
                 }
 
                 this.StartFileProcessQueueEvent(
-                            _RepEvent_id,
-                            _RepQueueEntryType_id,
-                            _RepQueueMediaType_id,
-                            _RepEventParameters_Txt,
+                            _WebEvent_id,
+                            _WebQueueEntryType_id,
+                            _WebQueueMediaType_id,
+                            _WebEventParameters_Txt,
                             "",
                             "",
                             targetFilename,
                             _WorkingDir_Name,
                             resFileUri,
-                            _RepDbObject_id,
+                            _WebDbObject_id,
                             _status,
                             cntn,
                             trx
                     );
 
-                dbObjPrecedents = this.objectPrecedent(_RepEvent_id, cntn, trx, _eaction);
+                dbObjPrecedents = this.objectPrecedent(_WebEvent_id, cntn, trx, _eaction);
 
                 if (dbObjPrecedents != null)
                 {
@@ -542,7 +542,7 @@ namespace WebAsistida.lib
             JObject mdRs = new JObject(); //++Armo metadata del result set.
 
             mdRs.Add(new JProperty("SubmitResponse", submit_response));
-            mdRs.Add(new JProperty("RepEvent_id", _RepEvent_id));
+            mdRs.Add(new JProperty("WebEvent_id", _WebEvent_id));
             res_ret.Add("ResultSetMetaData", mdRs);
 
             return JsonConvert.SerializeObject(res_ret, Newtonsoft.Json.Formatting.Indented);
@@ -553,26 +553,26 @@ namespace WebAsistida.lib
         {
             int enabledNum = 0;
             String strconn = Parametros().strTeradataLoad;
-            String _RepEvent_id = Request.Properties.ContainsKey("RepEvent_id") ? Request.Properties["RepEvent_id"].ToString() : "";
-            String _RepUser_EMail = Request.Properties.ContainsKey("RepUser_EMail") ? Request.Properties["RepUser_EMail"].ToString() : "lourdes_martinez@carrefour.com";
-            String _RepUser_id = Request.Properties.ContainsKey("RepUser_id") ? Request.Properties["RepUser_id"].ToString() : "lourdes_martinez";
-            String _RepDbObject_id = this.ToString().Split('.')[2];
-            String _RepQueueEntryType_id = eaction.ToString();
-            String _RepQueueMediaType_id = ImportMedia.NONE.ToString();
+            String _WebEvent_id = Request.Properties.ContainsKey("WebEvent_id") ? Request.Properties["WebEvent_id"].ToString() : "";
+            String _WebUser_EMail = Request.Properties.ContainsKey("WebUser_EMail") ? Request.Properties["WebUser_EMail"].ToString() : "lourdes_martinez@carrefour.com";
+            String _WebUser_id = Request.Properties.ContainsKey("WebUser_id") ? Request.Properties["WebUser_id"].ToString() : "lourdes_martinez";
+            String _WebDbObject_id = this.ToString().Split('.')[2];
+            String _WebQueueEntryType_id = eaction.ToString();
+            String _WebQueueMediaType_id = ImportMedia.NONE.ToString();
             String submit_response;
             String resFileUri = "";
             String _status = "Pendiente";
             List<Dictionary<String, String>> dbObjPrecedents = null;
             String targetFilename = "";
-            String _RepEventParameters_Txt = JsonConvert.SerializeObject(param, Newtonsoft.Json.Formatting.Indented);
+            String _WebEventParameters_Txt = JsonConvert.SerializeObject(param, Newtonsoft.Json.Formatting.Indented);
             string PATH = HttpContext.Current.Server.MapPath("~/process/");
-            String _WorkingDir_Name = PATH + _RepEvent_id + "_work";
+            String _WorkingDir_Name = PATH + _WebEvent_id + "_work";
             Directory.CreateDirectory(_WorkingDir_Name);
             _WorkingDir_Name = Regex.Replace(_WorkingDir_Name, @"\\", @"\\");
 
-            _RepEventParameters_Txt = _RepEventParameters_Txt.Replace("\n", "");
-            _RepEventParameters_Txt = _RepEventParameters_Txt.Replace("\r", "");
-            int iStringSize = ASCIIEncoding.ASCII.GetByteCount(_RepEventParameters_Txt);
+            _WebEventParameters_Txt = _WebEventParameters_Txt.Replace("\n", "");
+            _WebEventParameters_Txt = _WebEventParameters_Txt.Replace("\r", "");
+            int iStringSize = ASCIIEncoding.ASCII.GetByteCount(_WebEventParameters_Txt);
 
             if (iStringSize > 50000)
             {
@@ -587,9 +587,9 @@ namespace WebAsistida.lib
             {
                 this.LockTableForQueue(cntn, trx);
 
-                if (!_RepUser_id.Equals("admin", StringComparison.CurrentCultureIgnoreCase))
+                if (!_WebUser_id.Equals("admin", StringComparison.CurrentCultureIgnoreCase))
                 {
-                    enabledNum = this.validateDbObjectQueueRank(_RepDbObject_id, cntn, trx);
+                    enabledNum = this.validateDbObjectQueueRank(_WebDbObject_id, cntn, trx);
                 }
 
                 if (enabledNum == 0)
@@ -598,7 +598,7 @@ namespace WebAsistida.lib
                     {
                         if (dicQryTxt.Count != 0)
                         {
-                            this.insertQryTextToExport(dicQryTxt, cntn, trx, _RepEvent_id);
+                            this.insertQryTextToExport(dicQryTxt, cntn, trx, _WebEvent_id);
                         }
                         else
                         {
@@ -607,22 +607,22 @@ namespace WebAsistida.lib
                     }
 
                     this.StartFileProcessQueueEvent(
-                                _RepEvent_id,
-                                _RepQueueEntryType_id,
-                                _RepQueueMediaType_id,
-                                _RepEventParameters_Txt,
+                                _WebEvent_id,
+                                _WebQueueEntryType_id,
+                                _WebQueueMediaType_id,
+                                _WebEventParameters_Txt,
                                 "",
                                 "",
                                 targetFilename,
                                 _WorkingDir_Name,
                                 resFileUri,
-                                _RepDbObject_id,
+                                _WebDbObject_id,
                                 _status,
                                 cntn,
                                 trx
                         );
 
-                    dbObjPrecedents = this.objectPrecedent(_RepEvent_id, cntn, trx, eaction);
+                    dbObjPrecedents = this.objectPrecedent(_WebEvent_id, cntn, trx, eaction);
 
                     if (dbObjPrecedents != null)
                     {
@@ -669,14 +669,14 @@ namespace WebAsistida.lib
             JObject mdRs = new JObject(); //++Armo metadata del result set.
 
             mdRs.Add(new JProperty("SubmitResponse", submit_response));
-            mdRs.Add(new JProperty("RepEvent_id", _RepEvent_id));
+            mdRs.Add(new JProperty("WebEvent_id", _WebEvent_id));
             res_ret.Add("ResultSetMetaData", mdRs);
 
             return JsonConvert.SerializeObject(res_ret, Newtonsoft.Json.Formatting.Indented);
         }
         ////////////////////////////////////////////////////////////////////////////////
         [NonAction]
-        protected String fillProductEventFilterText(JObject param, String RepEvent_id, CfDbTable.ListOption list_option, String DbName,
+        protected String fillProductEventFilterText(JObject param, String WebEvent_id, CfDbTable.ListOption list_option, String DbName,
                 String TbName
             )
         {
@@ -690,12 +690,12 @@ namespace WebAsistida.lib
 
             fill_filter_qry_txt += "INSERT INTO " + DbName + "." + TbName + "\n";
             fill_filter_qry_txt += "(\n";
-            fill_filter_qry_txt += "RepEvent_id\n";
+            fill_filter_qry_txt += "WebEvent_id\n";
             fill_filter_qry_txt += ",Product_id\n";
             fill_filter_qry_txt += ",ProductBarCode_id\n";
             fill_filter_qry_txt += ")\n";
             fill_filter_qry_txt += "SELECT\n";
-            fill_filter_qry_txt += "'" + RepEvent_id + "' RepEvent_id\n";
+            fill_filter_qry_txt += "'" + WebEvent_id + "' WebEvent_id\n";
             fill_filter_qry_txt += ",Product_id\n";
             fill_filter_qry_txt += ",ProductBarCode_id\n";
             fill_filter_qry_txt += "FROM\n";
@@ -711,7 +711,7 @@ namespace WebAsistida.lib
         private void LockTableForQueue(TdConnection cntn, TdTransaction trx)
         {
             String qry_txt = @"
-LOCKING TABLE {0}.RepFileProcessQueueLockAccess FOR EXCLUSIVE";
+LOCKING TABLE {0}.WebFileProcessQueueLockAccess FOR EXCLUSIVE";
 
             String schema_name = Parametros().strDbSchema;
             TdCommand cmd = new TdCommand(String.Format(qry_txt, schema_name), cntn, trx);
@@ -729,60 +729,60 @@ LOCKING TABLE {0}.RepFileProcessQueueLockAccess FOR EXCLUSIVE";
         }
         //////////////////////////////////////////////////////////////////////
         [NonAction]
-        protected List<Dictionary<String, String>> objectPrecedent(String _RepEvent_id, TdConnection cntn, TdTransaction trx,
+        protected List<Dictionary<String, String>> objectPrecedent(String _WebEvent_id, TdConnection cntn, TdTransaction trx,
                 EntryAction eaction
             )
         {
             String qry_txt = "";
 
-            qry_txt += "LOCKING TABLE {0}.RepFileProcessQueue FOR ACCESS\n";
-            qry_txt += "LOCKING TABLE {0}.RepDbObjectPrecedent FOR ACCESS\n";
+            qry_txt += "LOCKING TABLE {0}.WebFileProcessQueue FOR ACCESS\n";
+            qry_txt += "LOCKING TABLE {0}.WebDbObjectPrecedent FOR ACCESS\n";
             qry_txt += "SELECT\n";
-            qry_txt += "tmp2.RepEvent_id,\n";
-            qry_txt += "tmp1.RepEvent_id AS PrecedentRepEvent_id\n";
+            qry_txt += "tmp2.WebEvent_id,\n";
+            qry_txt += "tmp1.WebEvent_id AS PrecedentWebEvent_id\n";
             qry_txt += "FROM\n";
             qry_txt += "(\n";
             qry_txt += "SELECT\n";
-            qry_txt += "rfpq.RepEvent_id,\n";
+            qry_txt += "rfpq.WebEvent_id,\n";
             qry_txt += "rfpq.Enqueue_Dt,\n";
             qry_txt += "rfpq.Enqueue_Tm,\n";
-            qry_txt += "rfpq.RepDbObject_id,\n";
-            qry_txt += "rfpq.RepFileProcessStatus_id\n";
+            qry_txt += "rfpq.WebDbObject_id,\n";
+            qry_txt += "rfpq.WebFileProcessStatus_id\n";
             qry_txt += "FROM\n";
-            qry_txt += "{0}.RepFileProcessQueue rfpq\n";
+            qry_txt += "{0}.WebFileProcessQueue rfpq\n";
 
             if (eaction == EntryAction.IMPORT_DELETE || eaction == EntryAction.IMPORT_UPSERT ||
                     eaction == EntryAction.PROCESS || eaction == EntryAction.PROCESS_EXPR
                 )
             {
                 qry_txt += "WHERE\n";
-                qry_txt += "rfpq.RepQueueEntryType_id NOT IN ('EXPORT_QUERY','EXPORT')\n";
+                qry_txt += "rfpq.WebQueueEntryType_id NOT IN ('EXPORT_QUERY','EXPORT')\n";
             }
             else
             {
                 qry_txt += "WHERE\n";
-                qry_txt += "rfpq.RepQueueEntryType_id IN ('EXPORT_QUERY','EXPORT')\n";
+                qry_txt += "rfpq.WebQueueEntryType_id IN ('EXPORT_QUERY','EXPORT')\n";
             }
 
             qry_txt += ") tmp1,\n";
             qry_txt += "(\n";
             qry_txt += "SELECT\n";
-            qry_txt += "rfpq.RepEvent_id,\n";
+            qry_txt += "rfpq.WebEvent_id,\n";
             qry_txt += "rfpq.Enqueue_Dt,\n";
             qry_txt += "rfpq.Enqueue_Tm,\n";
-            qry_txt += "rdop.PrecedentRepDbObject_id\n";
+            qry_txt += "rdop.PrecedentWebDbObject_id\n";
             qry_txt += "FROM\n";
-            qry_txt += "{0}.RepFileProcessQueue rfpq\n";
+            qry_txt += "{0}.WebFileProcessQueue rfpq\n";
             qry_txt += "INNER JOIN\n";
-            qry_txt += "{0}.RepDbObjectPrecedent rdop\n";
+            qry_txt += "{0}.WebDbObjectPrecedent rdop\n";
             qry_txt += "ON\n";
-            qry_txt += "rdop.RepDbObject_id = rfpq.RepDbObject_id\n";
+            qry_txt += "rdop.WebDbObject_id = rfpq.WebDbObject_id\n";
             qry_txt += "WHERE\n";
-            qry_txt += "rfpq.RepEvent_id = ?\n";
+            qry_txt += "rfpq.WebEvent_id = ?\n";
 
             if (eaction == EntryAction.EXPORT || eaction == EntryAction.EXPORT_QUERY)
             {
-                qry_txt += "AND rdop.RepDbObject_id = rdop.PrecedentRepDbObject_id\n";
+                qry_txt += "AND rdop.WebDbObject_id = rdop.PrecedentWebDbObject_id\n";
             }
 
             qry_txt += ") tmp2\n";
@@ -790,8 +790,8 @@ LOCKING TABLE {0}.RepFileProcessQueueLockAccess FOR EXCLUSIVE";
             qry_txt += "((tmp2.Enqueue_Dt > tmp1.Enqueue_Dt)\n";
             qry_txt += "OR ((tmp2.Enqueue_Dt = tmp1.Enqueue_Dt)\n";
             qry_txt += "AND (tmp2.Enqueue_Tm > tmp1.Enqueue_Tm)))\n";
-            qry_txt += "AND tmp2.PrecedentRepDbObject_id = tmp1.RepDbObject_id\n";
-            qry_txt += "AND tmp1.RepFileProcessStatus_id NOT IN ('Finalizado','Cancelado','Finalizado con error','Finalizado con alerta','Cancelado Automatico')\n";
+            qry_txt += "AND tmp2.PrecedentWebDbObject_id = tmp1.WebDbObject_id\n";
+            qry_txt += "AND tmp1.WebFileProcessStatus_id NOT IN ('Finalizado','Cancelado','Finalizado con error','Finalizado con alerta','Cancelado Automatico')\n";
             qry_txt += ";\n";
 
             String schema_name = Parametros().strDbSchema;
@@ -802,7 +802,7 @@ LOCKING TABLE {0}.RepFileProcessQueueLockAccess FOR EXCLUSIVE";
             {
                 TdParameter tp;
 
-                tp = new TdParameter("RepEvent_id", System.Data.DbType.String); tp.Value = _RepEvent_id; cmd.Parameters.Add(tp);
+                tp = new TdParameter("WebEvent_id", System.Data.DbType.String); tp.Value = _WebEvent_id; cmd.Parameters.Add(tp);
 
                 String cmdTimeOutStr = Parametros().strTimeOut;
                 int cmdTimeOut;
@@ -841,30 +841,30 @@ LOCKING TABLE {0}.RepFileProcessQueueLockAccess FOR EXCLUSIVE";
         }
         ////////////////////////////////////////////////////////////////////////////////
         [NonAction]
-        protected void StartFileProcessQueueEvent(String _RepEvent_id, String _RepQueueEntryType_id, String _RepQueueMediaType_id,
-                String _RepEventParameters_Txt, String _File_Name, String _LocalFile_Name, String _ResponseFile_Name, String _WorkingDir_Name,
-                String _UrlFile_Name, String _RepObject_id, String _RepFileProcessStatus_id, TdConnection cntn, TdTransaction trx
+        protected void StartFileProcessQueueEvent(String _WebEvent_id, String _WebQueueEntryType_id, String _WebQueueMediaType_id,
+                String _WebEventParameters_Txt, String _File_Name, String _LocalFile_Name, String _ResponseFile_Name, String _WorkingDir_Name,
+                String _UrlFile_Name, String _WebObject_id, String _WebFileProcessStatus_id, TdConnection cntn, TdTransaction trx
             )
         {
             String schema_name = Parametros().strDbSchema;
             String conn_str = Parametros().strTeradataLoad;
 
             String start_file_process_queue_event_txt = @"
-INSERT INTO {0}.RepFileProcessQueue
+INSERT INTO {0}.WebFileProcessQueue
 (
-    RepEvent_id,
-    RepQueueEntryType_id,
-    RepQueueMediaType_id,
-    RepEventParameters_Txt,
+    WebEvent_id,
+    WebQueueEntryType_id,
+    WebQueueMediaType_id,
+    WebEventParameters_Txt,
     File_Name,
     LocalFile_Name,
     ResponseFile_Name,
     WorkingDir_Name,
     UrlFile_Name,
-    RepDbObject_id,
+    WebDbObject_id,
     Enqueue_Dt,
     Enqueue_Tm,
-    RepFileProcessStatus_id
+    WebFileProcessStatus_id
 )
 VALUES
 (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_DATE, CAST ( CURRENT_TIME(6) AS TIME(6) ), ? )";
@@ -873,17 +873,17 @@ VALUES
             {
                 TdParameter tp;
 
-                tp = new TdParameter("RepEvent_id", System.Data.DbType.String); tp.Value = _RepEvent_id; cmd.Parameters.Add(tp);
-                tp = new TdParameter("RepQueueEntryType_id", System.Data.DbType.String); tp.Value = _RepQueueEntryType_id; cmd.Parameters.Add(tp);
-                tp = new TdParameter("RepQueueMediaType_id", System.Data.DbType.String); tp.Value = _RepQueueMediaType_id; cmd.Parameters.Add(tp);
-                tp = new TdParameter("RepEventParameters_Txt", System.Data.DbType.String); tp.Value = _RepEventParameters_Txt; cmd.Parameters.Add(tp);
+                tp = new TdParameter("WebEvent_id", System.Data.DbType.String); tp.Value = _WebEvent_id; cmd.Parameters.Add(tp);
+                tp = new TdParameter("WebQueueEntryType_id", System.Data.DbType.String); tp.Value = _WebQueueEntryType_id; cmd.Parameters.Add(tp);
+                tp = new TdParameter("WebQueueMediaType_id", System.Data.DbType.String); tp.Value = _WebQueueMediaType_id; cmd.Parameters.Add(tp);
+                tp = new TdParameter("WebEventParameters_Txt", System.Data.DbType.String); tp.Value = _WebEventParameters_Txt; cmd.Parameters.Add(tp);
                 tp = new TdParameter("File_Name", System.Data.DbType.String); tp.Value = _File_Name; cmd.Parameters.Add(tp);
                 tp = new TdParameter("LocalFile_Name", System.Data.DbType.String); tp.Value = _LocalFile_Name; cmd.Parameters.Add(tp);
                 tp = new TdParameter("ResponseFile_Name", System.Data.DbType.String); tp.Value = _ResponseFile_Name; cmd.Parameters.Add(tp);
                 tp = new TdParameter("WorkingDir_Name", System.Data.DbType.String); tp.Value = _WorkingDir_Name; cmd.Parameters.Add(tp);
                 tp = new TdParameter("UrlFile_Name", System.Data.DbType.String); tp.Value = _UrlFile_Name; cmd.Parameters.Add(tp);
-                tp = new TdParameter("RepObject_id", System.Data.DbType.String); tp.Value = _RepObject_id; cmd.Parameters.Add(tp);
-                tp = new TdParameter("RepFileProcessStatus_id", System.Data.DbType.String); tp.Value = _RepFileProcessStatus_id; cmd.Parameters.Add(tp);
+                tp = new TdParameter("WebObject_id", System.Data.DbType.String); tp.Value = _WebObject_id; cmd.Parameters.Add(tp);
+                tp = new TdParameter("WebFileProcessStatus_id", System.Data.DbType.String); tp.Value = _WebFileProcessStatus_id; cmd.Parameters.Add(tp);
 
                 String cmdTimeOutStr = Parametros().strTimeOut;
                 int cmdTimeOut;
@@ -906,7 +906,7 @@ VALUES
             String[] paramNames;
 
             // Tomo string de upsert.
-            String qry_txt = DbModel.RepFileProcessQueuePrecedent.mergeQryText(out paramNames);
+            String qry_txt = DbModel.WebFileProcessQueuePrecedent.mergeQryText(out paramNames);
 
             using (TdCommand cmd = new TdCommand(qry_txt, cntn, trx))
             {
@@ -960,8 +960,8 @@ VALUES
         }
         ////////////////////////////////////////////////////////////////////////////////
         [NonAction]
-        protected virtual Dictionary<String, List<String>> QryTextBuilder(JObject param, CfDbTable.ListOption list_option, String RepEvent_id,
-                String RepUser_id, TdConnection cntn
+        protected virtual Dictionary<String, List<String>> QryTextBuilder(JObject param, CfDbTable.ListOption list_option, String WebEvent_id,
+                String WebUser_id, TdConnection cntn
             )
         {
             Dictionary<String, List<String>> dicQryText = new Dictionary<String, List<String>>();
@@ -979,7 +979,7 @@ VALUES
         ////////////////////////////////////////////////////////////////////////////////
         [NonAction]
         protected void insertQryTextToExport(Dictionary<String, List<String>> dicQryText, TdConnection cntn, TdTransaction trx, 
-                String RepEvent_id
+                String WebEvent_id
             )
         {
             String schema_name = Parametros().strDbSchema;
@@ -992,21 +992,21 @@ VALUES
                 String Sheet_Name = pair.Key;
                 List<String> listQryText = pair.Value;
 
-                this.RepFileProcessGroupQuery(Sheet_Name, cntn, trx, RepEvent_id, schema_name, conn_str, tabIndex);
+                this.WebFileProcessGroupQuery(Sheet_Name, cntn, trx, WebEvent_id, schema_name, conn_str, tabIndex);
 
-                this.RepFileProcessQuery(listQryText, cntn, trx, RepEvent_id, schema_name, conn_str, tabIndex);
+                this.WebFileProcessQuery(listQryText, cntn, trx, WebEvent_id, schema_name, conn_str, tabIndex);
 
                 tabIndex++;
             }
         }
         ////////////////////////////////////////////////////////////////////////////////
         [NonAction]
-        protected void RepFileProcessGroupQuery(String Sheet_Name, TdConnection cntn, TdTransaction trx, String RepEvent_id, 
+        protected void WebFileProcessGroupQuery(String Sheet_Name, TdConnection cntn, TdTransaction trx, String WebEvent_id, 
                 String schema_name, String conn_str, int tabIndex
             )
         {
             String[] paramNames;
-            String qry_txt = DbModel.RepFileProcessSheetGroup.mergeQryText(out paramNames);
+            String qry_txt = DbModel.WebFileProcessSheetGroup.mergeQryText(out paramNames);
 
             using (TdCommand cmd = new TdCommand(qry_txt, cntn, trx))
             {
@@ -1017,7 +1017,7 @@ VALUES
                 }
 
                 //Le asigno el evento pues siempre es el mismo
-                cmd.Parameters["RepEvent_id"].Value = RepEvent_id;
+                cmd.Parameters["WebEvent_id"].Value = WebEvent_id;
                 cmd.Parameters["Sheet_Num"].Value = tabIndex;
                 cmd.Parameters["Sheet_Name"].Value = Sheet_Name;
 
@@ -1037,12 +1037,12 @@ VALUES
         }
         ////////////////////////////////////////////////////////////////////////////////
         [NonAction]
-        protected void RepFileProcessQuery(List<String> listQryText, TdConnection cntn, TdTransaction trx, String RepEvent_id, 
+        protected void WebFileProcessQuery(List<String> listQryText, TdConnection cntn, TdTransaction trx, String WebEvent_id, 
                 String schema_name, String conn_str, int tabIndex
             )
         {
             String[] paramNames;
-            String qry_txt = DbModel.RepFileProcessQuery.mergeQryText(out paramNames);
+            String qry_txt = DbModel.WebFileProcessQuery.mergeQryText(out paramNames);
 
             using (TdCommand cmd = new TdCommand(qry_txt, cntn, trx))
             {
@@ -1053,7 +1053,7 @@ VALUES
                 }
 
                 //Le asigno el evento pues siempre es el mismo
-                cmd.Parameters["RepEvent_id"].Value = RepEvent_id;
+                cmd.Parameters["WebEvent_id"].Value = WebEvent_id;
                 cmd.Parameters["Sheet_Num"].Value = tabIndex;
                 int querynum = 0;
 
@@ -1064,8 +1064,8 @@ VALUES
 
                     cmd.Parameters["Query_Num"].Value = querynum;
 
-                    //cmd.Parameters["RepFileProcessQueryLine_id"].Value = ilinenum;
-                    cmd.Parameters["RepFileProcessQueryLine_Txt"].Value = qry_text;
+                    //cmd.Parameters["WebFileProcessQueryLine_id"].Value = ilinenum;
+                    cmd.Parameters["WebFileProcessQueryLine_Txt"].Value = qry_text;
 
                     String cmdTimeOutStr = Parametros().strTimeOut;
                     int cmdTimeOut;
@@ -1086,7 +1086,7 @@ VALUES
         }
         ////////////////////////////////////////////////////////////////////////////////
         [NonAction]
-        protected int validateDbObjectQueueRank(String _RepDbObject, TdConnection cntn, TdTransaction trx)
+        protected int validateDbObjectQueueRank(String _WebDbObject, TdConnection cntn, TdTransaction trx)
         {
             String currentTime = DateTime.Now.ToString("HH:mm:ss");
             String schema_name = Parametros().strDbSchema;
@@ -1095,9 +1095,9 @@ VALUES
 SELECT
     QueueEnabled_Ind
 FROM
-" + schema_name + @".RepDbObjectQueue
+" + schema_name + @".WebDbObjectQueue
 WHERE
-    RepDbObject_id = '" + _RepDbObject + @"'
+    WebDbObject_id = '" + _WebDbObject + @"'
 AND CURRENT_DATE Between EffectiveDate and ExpirationDate
 AND CAST('" + currentTime + @"' AS TIME(0)) Between EffectiveTime and ExpirationTime
 AND QueueEnabled_Ind IN ('N')
@@ -1432,11 +1432,11 @@ AND QueueEnabled_Ind IN ('N')
                             String value;
                             if (tp.ParameterName == tabInfo.TrkEvent_Column.ColName)
                             {
-                                value = Request.Properties.ContainsKey("RepEvent_id") ? Request.Properties["RepEvent_id"].ToString() : "";
+                                value = Request.Properties.ContainsKey("WebEvent_id") ? Request.Properties["WebEvent_id"].ToString() : "";
                             }
                             else if (tp.ParameterName == tabInfo.TrkUser_Column.ColName)
                             {
-                                value = Request.Properties.ContainsKey("RepUser_id") ? Request.Properties["RepUser_id"].ToString() : "nicolas_oliveto";
+                                value = Request.Properties.ContainsKey("WebUser_id") ? Request.Properties["WebUser_id"].ToString() : "nicolas_oliveto";
                             }
                             else if (!rec.TryGetValue(tp.ParameterName, out value))
                             {

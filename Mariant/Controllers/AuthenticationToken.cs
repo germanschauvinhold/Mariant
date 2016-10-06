@@ -4,31 +4,31 @@ namespace WebAsistida.lib
 {
     public class AuthenticationToken
     {
-        public static String Make(String RepSession_id, String RepUser_id, String[] RepSessionRoles, String RepUser_EMail)
+        public static String Make(String WebSession_id, String WebUser_id, String[] WebSessionRoles, String WebUser_EMail)
         {
             return "";
         }
 
-        public static void Parse(string authToken, out String RepSession_id, out String RepUser_id, out String[] RepSessionRoles, out String RepUser_EMail)
+        public static void Parse(string authToken, out String WebSession_id, out String WebUser_id, out String[] WebSessionRoles, out String WebUser_EMail)
         {
 
             String authVal = CryptEngine.Decrypt(authToken, true);
 
             String[] credentials = authVal.Split(new[] { ':' });
 
-            RepSession_id = null;
-            RepUser_id = null;
-            RepSessionRoles = null;
-            RepUser_EMail = null;
+            WebSession_id = null;
+            WebUser_id = null;
+            WebSessionRoles = null;
+            WebUser_EMail = null;
 
             if (credentials.Length < 4 || string.IsNullOrEmpty(credentials[0])
                 || string.IsNullOrEmpty(credentials[1])) return;
 
-            RepSession_id = credentials[0];
-            RepUser_id = credentials[1];
+            WebSession_id = credentials[0];
+            WebUser_id = credentials[1];
             String rolestring = credentials[2];
-            RepSessionRoles = rolestring.Split(new[] { ',' });
-            RepUser_EMail = credentials[3];
+            WebSessionRoles = rolestring.Split(new[] { ',' });
+            WebUser_EMail = credentials[3];
         }
     }
 }
