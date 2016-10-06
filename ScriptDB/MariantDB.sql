@@ -1,23 +1,23 @@
 ﻿/*
 Script de creacion de bases de datos.
 */
-LEANGER
+
 /*
 Creacion de Usuario SysDBA
 */
 CREATE USER SysDBA FROM DBC AS PERM = 0, PASSWORD = ******** ;
 
-/* Bases de LEANGER  */
+/* Bases de Mariant  */
 
-CREATE DATABASE LEANGER_DW FROM SysDBA AS PERM = 0;
+CREATE DATABASE MARIANT_DW FROM SysDBA AS PERM = 0;
 
-/* Bases de Usuarios LEANGER  */
+/* Bases de Usuarios Mariant  */
 
-CREATE DATABASE MDW_USERS FROM LEANGER_DW AS PERM = 0;
+CREATE DATABASE MDW_USERS FROM MARIANT_DW AS PERM = 0;
 
-/* Bases de LEANGER desarrollo */
+/* Bases de Mariant desarrollo */
 
-CREATE DATABASE MDW_DS FROM LEANGER_DW AS PERM = 0;
+CREATE DATABASE MDW_DS FROM MARIANT_DW AS PERM = 0;
 /* Base de tablas */
 CREATE DATABASE MDW_DS_TABLES FROM MDW_DS AS PERM = 0;
 /* Base de vistas */
@@ -25,9 +25,9 @@ CREATE DATABASE MDW_DS_VIEWS FROM MDW_DS AS PERM = 0;
 /* Base de staging */
 CREATE DATABASE MDW_DS_STG FROM MDW_DS AS PERM = 0;
 
-/* Bases de LEANGER homologacion */
+/* Bases de Mariant homologacion */
 
-CREATE DATABASE MDW_HM FROM LEANGER_DW AS PERM = 0;
+CREATE DATABASE MDW_HM FROM MARIANT_DW AS PERM = 0;
 /* Base de tablas */
 CREATE DATABASE MDW_HM_TABLES FROM MDW_HM AS PERM = 0;
 /* Base de vistas */
@@ -35,9 +35,9 @@ CREATE DATABASE MDW_HM_VIEWS FROM MDW_HM AS PERM = 0;
 /* Base de staging */
 CREATE DATABASE MDW_HM_STG FROM MDW_HM AS PERM = 0;
 
-/* Bases de LEANGER produccion */
+/* Bases de Mariant produccion */
 
-CREATE DATABASE MDW_PR FROM LEANGER_DW AS PERM = 0;
+CREATE DATABASE MDW_PR FROM MARIANT_DW AS PERM = 0;
 /* Base de tablas */
 CREATE DATABASE MDW_PR_TABLES FROM MDW_PR AS PERM = 0;
 /* Base de vistas */
@@ -146,7 +146,7 @@ UPDATE,
 DELETE ON MDW_DS_TABLES TO MDW_LOAD_DS_RL;
 
 
-/* Base de staging para LEANGER. GERMAN 2016-10-02 */
+/* Base de staging para MARIANT. GERMAN 2016-10-02 */
 GRANT
 
 CREATE MACRO,
